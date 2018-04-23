@@ -34,6 +34,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 LayoutInflater.from(parent.getContext());
         NewsItemBinding itemBinding =
                 NewsItemBinding.inflate(layoutInflater, parent, false);
+        // Set handler to be used in XML layout
+        Handlers handlers = new Handlers();
+        handlers.setAppContext(parent.getContext());
+        itemBinding.setHandlers(handlers);
         return new NewsViewHolder(itemBinding.getRoot());
     }
 
@@ -41,7 +45,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         News sn = newsList.get(position);
         holder.mBinding.setNews(sn);
-        holder.mBinding.NewsTextHeading.setText(sn.getNewsHeading());
     }
 
     @Override

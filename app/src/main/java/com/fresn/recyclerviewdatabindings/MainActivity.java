@@ -13,7 +13,6 @@ import com.fresn.recyclerviewdatabindings.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
@@ -24,22 +23,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        // Add some news
-        News news = new News();
-        news.setNewsArticle("Test article 1");
-        news.setNewsHeading("Test heading 1");
-        newsList.add(news);
-    }
-
-    @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mLayoutManager = new LinearLayoutManager(this);
         mBinding.mainView.setLayoutManager(mLayoutManager);
         mAdapter = new NewsAdapter(newsList);
         mBinding.mainView.setAdapter(mAdapter);
-        return super.onCreateView(parent, name, context, attrs);
+        // Add some news
+        News news = new News();
+        news.setNewsArticle("News article 1");
+        news.setNewsHeading("News heading 1");
+        newsList.add(news);
+        news = new News();
+        news.setNewsArticle("News article 2");
+        news.setNewsHeading("News heading 2");
+        newsList.add(news);
+        news = new News();
+        news.setNewsArticle("News article 3");
+        news.setNewsHeading("News heading 3");
+        newsList.add(news);
+        mAdapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
     }
 }
